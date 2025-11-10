@@ -32,11 +32,11 @@ if __name__ == "__main__":
         df = pd.read_csv(f"{log_file}")
         previous_results = df.sort_values('timestamp').iloc[-1]
         previous_stored_energy = previous_results['stored_energy']
-        previous_charge_decision = previous_results['charge_decision']
+        # previous_charge_decision = previous_results['charge_decision']
         previous_timestamp = previous_results['timestamp']
     else:
         previous_stored_energy = 0
-        previous_charge_decision = 0
+        # previous_charge_decision = 0
         previous_timestamp = None
 
     ## initialise Battery class with previous results
@@ -64,7 +64,7 @@ if __name__ == "__main__":
         'stored_energy': battery.stored_energy,
         'price': latest_price,
         'charge_decision': charge_decision,
-        'revenue': -previous_charge_decision * latest_price,
+        'revenue': -charge_decision * latest_price, # based on powell's formulation
         'capacity': capacity,
         'loss_factor': loss_factor,
     }
